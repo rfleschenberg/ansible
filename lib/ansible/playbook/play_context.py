@@ -359,9 +359,10 @@ class PlayContext(Base):
             for variable_name in variable_names:
                 if attr in attrs_considered:
                     continue
-                if isinstance(delegated_vars, dict) and variable_name in delegated_vars:
-                    setattr(new_info, attr, delegated_vars[variable_name])
-                    attrs_considered.append(attr)
+                if delegated_vars:
+                    if variable_name in delegated_vars:
+                        setattr(new_info, attr, delegated_vars[variable_name])
+                        attrs_considered.append(attr)
                 elif variable_name in variables:
                     setattr(new_info, attr, variables[variable_name])
                     attrs_considered.append(attr)
